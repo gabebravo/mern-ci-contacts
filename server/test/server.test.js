@@ -42,14 +42,14 @@ describe('POST /contact/create', () => {
         .post('/contact/create')
         .send(contact3)
         .expect(200)
-        .expect( res => { // check the response
+        .expect( res => { // check the test response
           const {contact} = res.body;
           expect(contact).toExist();
           expect(contact.name).toBe(contact3.name);
           expect(contact.email).toBe(contact3.email);
           contacts.push(contact);
         })
-        .end( (err, res) => { // query DB block
+        .end( (err, res) => { // check the actual DB response
           if(err){ return done(err); }
           const {contact} = res.body;
           Contact.findOne({ name: contact.name, email: contact.email })
@@ -61,37 +61,46 @@ describe('POST /contact/create', () => {
     });
 });
 
-//   it('handles a PUT request to /contact/edit', (done) => {
-//     const updateTestContact = new Contact({ name: 'John Doe', email: 'test@test.com' })
-//       updateTestContact.save().then( contact => {
-//         request(app)
-//           .put('/contact/edit')
-//           .send({ id: contact._id, email: 'test@test.com', name: 'Jane Doe' })
-//           .end( (err, response) => {
-//              assert(response.body.name === 'Jane Doe');
-//              assert(response.body.email === 'test@test.com');
-//             done();
-//         });
-//       });
-//   });
+describe('PUT /contact/edit', () => {
+    it('handles a PUT request to /contact/edit', done => {
+      request(app)
+        .put('/contact/edit')
+        .send({ id: contacts[0]._id, name: "First Contact Updated", email: "contact1@gmail.com", })
+        .expect(200)
+        .expect( res => {
+          expect(res.body.name).toBe('First Contact Updated');
+          expect(res.body.email).toBe(contacts[0].email);
+        })
+        .end( (err, res) => { // query DB block
+          if(err){ return done(err); }
+          const {name, email} = res.body;
+          Contact.findOne({ name, email })
+            .then( contact => {
+              expect(contact.name).toBe('First Contact Updated');
+              done();
+            }).catch( e => done(e));
+        });
+    });
+})
 
-//   it('handles a DELETE request to /contact/delete', (done) => {
-//     const testUser = new Contact({ name: 'John Doe', email: 'test@test.com'});
-//     const testUser2 = new Contact({ name: 'Jane Doe', email: 'test2@test.com'});
-//     const testUser3 = new Contact({ name: 'John Snow', email: 'test3@test.com'});
-//     Promise.all([ testUser.save(), testUser2.save(), testUser3.save() ])
-//       request(app)
-//           .delete('/contact/delete?email=test@test.com')
-//           .end( (err, response) => {        
-//             assert(response.body.contacts.length === 2);
-//             assert( typeof response.body.contacts === 'object' );
-//             assert(response.body.message === 'the contact was successfully deleted');
-//             Contact.findOne({ email: 'test@test.com' })
-//               .then( contact => {
-//                assert(contact === null);
-//             })
-//             done();
-//         });
-//   });
-
-// });
+describe('DELETE /contact/delete', () => {
+  it('handles a DELETE request to /contact/delete', done => { 
+    request(app)
+      .delete(`/contact/delete?email=${contacts[2].email}`)
+      .expect(200)
+      .expect( res => {
+        console.log(res.body.contacts);
+        expect(res.body).toExist(); // data should be there
+        expect(res.body.contacts.length).toEqual(2); // contacts array length
+        expect(res.body.contacts[0]).toIncludeKeys(['name', 'email']); // has these keys
+      })
+      .end( (err, res) => { // query DB block
+        if(err){ return done(err); }
+        Contact.find({})
+          .then( contact => {
+            expect(contact.length).toEqual(2); // contacts array length 2 => 3rd user deleted
+            done();
+          }).catch( e => done(e));
+      });
+  });
+});
