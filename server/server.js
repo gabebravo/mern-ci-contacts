@@ -13,7 +13,6 @@ const port = process.env.PORT;
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-console.log(process.env.NODE_ENV);
 // this is will add the client in deployment
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../client/build'));
