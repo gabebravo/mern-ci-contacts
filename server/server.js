@@ -1,5 +1,4 @@
 // the DB config base on NODE_ENV
-require('dotenv').config();
 require('./config/config');
 
 // import mongoose db

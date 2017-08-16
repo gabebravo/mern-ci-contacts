@@ -5,7 +5,7 @@ if (env === 'development') {
   process.env.MONGODB_URI = 'mongodb://localhost:27017/contacts'; // set local db
 } else if ( env === 'test') {
   process.env.PORT = 3000;
-  process.env.MONGODB_URI = process.env.TDB;
+  process.env.MONGODB_URI = 'mongodb://admin:password@ds113063.mlab.com:13063/conatcts_test';
 } else if (env === 'localtest') {
   process.env.PORT = 3000;
   process.env.MONGODB_URI = 'mongodb://localhost:27017/contacts_test'; // set local db
