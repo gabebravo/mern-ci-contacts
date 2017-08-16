@@ -4,9 +4,29 @@ const request = require('supertest');
 const {app} = require('../server');
 const { Contact } = require('../models/contact'); // this is the collection name
 const {ObjectID} = require('mongodb');
-const {contacts, populateContacts} = require('../seed/seed');
 
-beforeEach(populateContacts);
+// seed the data for a mock db
+const contacts = [
+  { /* 1 */
+    _id: new ObjectID(),
+    "name" : "First Contact",
+    "email" : "contact1@gmail.com",
+  }, 
+  { /* 2 */
+    _id: new ObjectID(),
+    "name" : "Second Contact",
+    "email" : "contact2@gmail.com"
+  }
+];
+
+// before any tests the test db is destroyed
+beforeEach( done => {
+  Contact.remove({}) // removes todos in test db every time
+    .then( () => { // saves the todos above to the mock db
+      return Contact.insertMany(contacts)
+    })
+    .then( () => done()); // then we exit 
+});
 
 describe('GET /contact && GET /contact/find', () => {
   it('should get all contacts', done => {
