@@ -89,7 +89,6 @@ describe('DELETE /contact/delete', () => {
       .delete(`/contact/delete?email=${contacts[2].email}`)
       .expect(200)
       .expect( res => {
-        console.log(res.body.contacts);
         expect(res.body).toExist(); // data should be there
         expect(res.body.contacts.length).toEqual(2); // contacts array length
         expect(res.body.contacts[0]).toIncludeKeys(['name', 'email']); // has these keys
