@@ -1,5 +1,5 @@
 var env = process.env.NODE_ENV || 'development';
-console.log(process.env.TEST_DB);
+
 if (env === 'development') {
   process.env.PORT = 3001; // sets localhost
   process.env.MONGODB_URI = 'mongodb://localhost:27017/contacts'; // set local db
