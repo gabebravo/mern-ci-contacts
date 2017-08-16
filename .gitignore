@@ -4,3 +4,4 @@ readme.md
 server/config/config.json
 .vscode
 .eslintrc.json
+.env

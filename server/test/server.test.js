@@ -2,7 +2,7 @@
 const expect = require('expect');
 const request = require('supertest');
 const {app} = require('../server');
-const { Contact } = require('../models/contact'); // this is the collection name
+const {Contact} = require('../models/contact'); // this is the collection name
 const {ObjectID} = require('mongodb');
 
 // seed the data for a mock db
@@ -101,7 +101,7 @@ describe('PUT /contact/edit', () => {
             }).catch( e => done(e));
         });
     });
-})
+});
 
 describe('DELETE /contact/delete', () => {
   it('handles a DELETE request to /contact/delete', done => { 
