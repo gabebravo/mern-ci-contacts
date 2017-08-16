@@ -1,7 +1,0 @@
-deploy:
-  provider: heroku
-  api_key:
-    secure: 4zFeFYIMsrKfkL3G151s3g3HyL90QLaPnVDLRbRGtq8Sccr2dVu6byhYzFtiGaItKE/qyGPMYlfF7VCz9qTpsf2/KuZKwdnO9ufXqOcqs9ECghFjPTq0Evo973gUOgmXW4/gi4i2coFx+6UbyhYHYbx7T8YqE1lsPW8Ukx/Bo/J2KEkOlXS/Jxb+R1w/6gcEDkNsFaCJUzHutjRfOGZtCa6yTC05GVGtP63XW1WXRUVaDcflV8ILGOVsyDRuB4oxbuPhvzM2CVUT7GOWh593qodlhuJZ5JYUovEzfgFf/1HerScX+d3qlzdRJLhvnox0BemilKQBivDUizQwPkI3ZMgTBdE4QJO4b6aAFOyOwZeP5YWecKdX5ml/tZg5mjouf5/mSFsKwloSkp4nQEvZprsD8jdLqy5mM62MBVtW322eW2ZOHmwcl/2jHBYpNZaMeV5qM5OHrAbaEW0/ZoQLmNK54V2BCzXhxKvqhHhZrOC8zKVWPTEmZ5Q0Qk8eMkLebBil6MnN+jAUe/dDoZpc8z99J64VdklY88fygswoofZXUNdQGD2p+ws5K99Lv++QCOF3e/aReWZWBl7G/GFigIWejEUUbyIoeh+v9mnsSxBWRBwV1g21POuMo3ETDydFiCXAcVklcuIXp1KSKh0ZTnFNg0NMTkR/b584IEP3bw8=
-  app: mern-ci-contacts
-  on:
-    repo: gabebravo/mern-ci-contacts
